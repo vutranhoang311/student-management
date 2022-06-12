@@ -45,10 +45,7 @@ class StudentForm extends Component {
     });
   };
   componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.selectStudent !== this.props.selectStudent.id &&
-      !prevProps.selectStudent.id
-    ) {
+    if (prevProps.selectStudent !== this.props.selectStudent) {
       this.setState({
         inputValues: { ...this.props.selectStudent },
       });

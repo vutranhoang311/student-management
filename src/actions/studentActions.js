@@ -61,9 +61,8 @@ export const updateStudent = (studentId, student, onSuccess) => {
         `https://6271e15e25fed8fcb5ec0b3d.mockapi.io/employee/studentManagement/${studentId}`,
         student
       );
-      dispatch(getStudents());
-      onSuccess();
-      dispatch({ type: actionTypes.UPDATE_STUDENT });
+        dispatch(getStudents());
+        onSuccess();
     } catch (error) {
       console.log(error);
     }

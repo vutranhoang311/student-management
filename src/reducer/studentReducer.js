@@ -13,9 +13,6 @@ const studentReducer = (state = initialState, action) => {
     case actionTypes.SELECT_STUDENT: {
       return { ...state, selectStudent: action.selectStudent };
     }
-    case actionTypes.UPDATE_STUDENT: {
-      return { ...state, selectStudent: {} };
-    }
     default:
       return state;
   }
