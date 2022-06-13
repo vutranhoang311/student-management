@@ -21,9 +21,9 @@ class StudentForm extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    if (this.props.selectStudent.id) {
+    if (this.state.inputValues.id) {
       this.props.updateStudent(
-        this.props.selectStudent.id,
+        this.state.inputValues.id,
         this.state.inputValues,
         this.handleSubmitSuccess
       );

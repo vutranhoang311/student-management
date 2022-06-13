@@ -3,6 +3,7 @@ import * as actionTypes from "../constants/studentConstants";
 const initialState = {
   students: [],
   selectStudent: {},
+  searchValue: "",
 };
 
 const studentReducer = (state = initialState, action) => {
@@ -11,7 +12,11 @@ const studentReducer = (state = initialState, action) => {
       return { ...state, students: action.students };
     }
     case actionTypes.SELECT_STUDENT: {
+      console.log(action)
       return { ...state, selectStudent: action.selectStudent };
+    }
+    case "SEARCH_VALUE": {
+      return { ...state, searchValue: action.searchValue };
     }
     default:
       return state;

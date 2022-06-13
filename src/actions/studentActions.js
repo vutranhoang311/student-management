@@ -1,29 +1,20 @@
 import axios from "axios";
 import * as actionTypes from "../constants/studentConstants";
-export const getStudents = (studentId = -1) => {
+export const getStudents = () => {
   return async (dispatch, getState) => {
     try {
-      if (studentId === -1) {
-        const response = await axios({
-          url: "https://6271e15e25fed8fcb5ec0b3d.mockapi.io/employee/studentManagement",
-          method: "GET",
-        });
-        dispatch({
-          type: actionTypes.GET_STUDENT_FULLFILLED,
-          students: response.data,
-        });
-      } else {
-        const response = await axios({
-          url:
-            "https://6271e15e25fed8fcb5ec0b3d.mockapi.io/employee/studentManagement/" +
-            studentId,
-          method: "GET",
-        });
-        dispatch({
-          type: actionTypes.SELECT_STUDENT,
-          selectStudent: response.data,
-        });
-      }
+      const searchValue = getState().studentManagement.searchValue;
+      const response = await axios({
+        url: "https://6271e15e25fed8fcb5ec0b3d.mockapi.io/employee/studentManagement",
+        method: "GET",
+        params: {
+          fullName: searchValue,
+        },
+      });
+      dispatch({
+        type: actionTypes.GET_STUDENT_FULLFILLED,
+        students: response.data,
+      });
     } catch (error) {}
   };
 };
@@ -61,8 +52,8 @@ export const updateStudent = (studentId, student, onSuccess) => {
         `https://6271e15e25fed8fcb5ec0b3d.mockapi.io/employee/studentManagement/${studentId}`,
         student
       );
-        dispatch(getStudents());
-        onSuccess();
+      dispatch(getStudents());
+      onSuccess();
     } catch (error) {
       console.log(error);
     }

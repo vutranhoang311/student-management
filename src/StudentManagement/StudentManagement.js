@@ -3,10 +3,16 @@ import StudentForm from "./StudentForm";
 import StudentList from "./StudentList";
 import { connect } from "react-redux";
 import { getStudents } from "../actions/studentActions";
+import StudentSearch from "./StudentSearch";
 
 class StudentManagement extends Component {
   componentDidMount() {
     this.props.getStudents();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.searchValue !== this.props.searchValue) {
+      this.props.getStudents();
+    }
   }
   render() {
     return (
@@ -19,6 +25,7 @@ class StudentManagement extends Component {
         </div>
 
         <StudentForm />
+        <StudentSearch />
         <StudentList students={this.props.students} />
       </div>
     );
@@ -27,6 +34,7 @@ class StudentManagement extends Component {
 const mapStateToProps = (state) => {
   return {
     students: state.studentManagement.students,
+    searchValue: state.studentManagement.searchValue,
   };
 };
 const mapDispatchToProps = (dispatch) => {

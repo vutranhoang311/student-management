@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { deleteStudent, getStudents } from "../actions/studentActions";
-
+import { deleteStudent } from "../actions/studentActions";
+import * as actionTypes from "../constants/studentConstants";
 class StudentItem extends Component {
   render() {
     const { student } = this.props;
@@ -29,7 +29,7 @@ class StudentItem extends Component {
         <td className="px-6 py-4 text-center">
           <button
             className="mx-1 px-4 py-1 text-sm text-white bg-blue-400 rounded"
-            onClick={() => this.props.selectStudent(student.id, student)}
+            onClick={() => this.props.selectStudent(student.id,student)}
           >
             Edit
           </button>
@@ -51,8 +51,12 @@ const mapDispatchToProps = (dispatch) => {
     deleteStudent: (studentId) => {
       dispatch(deleteStudent(studentId));
     },
-    selectStudent: (studentId) => {
-      dispatch(getStudents(studentId));
+    selectStudent: (studentId, selectStudent) => {
+      dispatch({
+        type: actionTypes.SELECT_STUDENT,
+        studentId,
+        selectStudent,
+      });
     },
   };
 };
