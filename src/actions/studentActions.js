@@ -1,9 +1,11 @@
 import axios from "axios";
 import * as actionTypes from "../constants/studentConstants";
-export const getStudents = () => {
+
+export const getStudents = (searchValue) => {
   return async (dispatch, getState) => {
     try {
-      const searchValue = getState().studentManagement.searchValue;
+      dispatch({ type: actionTypes.GET_STUDENT_PENDING });
+      // const searchValue = getState().studentManagement.searchValue;
       const response = await axios({
         url: "https://6271e15e25fed8fcb5ec0b3d.mockapi.io/employee/studentManagement",
         method: "GET",
@@ -15,7 +17,12 @@ export const getStudents = () => {
         type: actionTypes.GET_STUDENT_FULLFILLED,
         students: response.data,
       });
-    } catch (error) {}
+    } catch (error) {
+      dispatch({
+        type: actionTypes.GET_STUDENT_REJECTED,
+        error: error.response.data,
+      });
+    }
   };
 };
 

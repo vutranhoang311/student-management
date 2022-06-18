@@ -1,9 +1,11 @@
-import StudentManagement from "./StudentManagement/StudentManagement";
+// import StudentManagement from "./StudentManagement/StudentManagement";
+import StudenManagementHook from "./StudentMangamentHooks/StudenManagementHook";
 
 function App() {
   return (
     <div>
-      <StudentManagement />
+      {/* <StudentManagement /> */}
+      <StudenManagementHook />
     </div>
   );
 }
