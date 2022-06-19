@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useRef } from "react";
 import useForm from "./useForm";
 const StudentFormHook = () => {
   const { input, handleOnChange, handleOnSubmit, setInput, selectStudent } =
@@ -9,13 +10,14 @@ const StudentFormHook = () => {
       dateOfBirth: "",
     });
 
+  let isMounted = useRef(false);
   useEffect(() => {
-    if (selectStudent?.id) {
-      setInput({ ...selectStudent });
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
     }
-    return () => {
-      // cleanup effect
-    };
+    setInput({ ...selectStudent });
+    return () => {};
   }, [selectStudent]);
 
   return (

@@ -2,7 +2,7 @@ import * as actionTypes from "../constants/studentConstants";
 
 const initialState = {
   students: [],
-  selectStudent: {},
+  selectStudent: null,
   isLoading: false,
   error: null,
 };
