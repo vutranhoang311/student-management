@@ -2,14 +2,29 @@ import React, { useEffect } from "react";
 import { useRef } from "react";
 import useForm from "./useForm";
 const StudentFormHook = () => {
-  const { input, handleOnChange, handleOnSubmit, setInput, selectStudent } =
-    useForm({
+  const {
+    errors,
+    input,
+    handleOnChange,
+    handleOnSubmit,
+    setInput,
+    selectStudent,
+    patternValidation,
+  } = useForm(
+    {
       fullName: "",
       email: "",
       phone: "",
       dateOfBirth: "",
-    });
-
+    },
+    {
+      fullName: { messages: [] },
+      email: { messages: [] },
+      phone: { messages: [] },
+      dateOfBirth: { messages: [] },
+      hidden: true,
+    }
+  );
   let isMounted = useRef(false);
   useEffect(() => {
     if (!isMounted.current) {
@@ -37,9 +52,13 @@ const StudentFormHook = () => {
               type="text"
               name="fullName"
               placeholder="Vu Tran Hoang"
-              required
               className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md  focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"
             />
+            {errors.fullName.messages.map((item, index) => (
+              <p className="text-red-400" key={index} hidden={errors.hidden}>
+                {item}
+              </p>
+            ))}
           </div>
           <div className="mb-6">
             <label htmlFor="email" className="block mb-2 text-sm text-gray-600">
@@ -51,9 +70,14 @@ const StudentFormHook = () => {
               type="text"
               name="email"
               placeholder="you@email.com"
-              required
               className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md  focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"
             />
+            {errors.email.messages.map((item, index) => (
+              <p className="text-red-400" key={index} hidden={errors.hidden}>
+                {item}
+              </p>
+            ))}
+            
           </div>
         </div>
         <div className="form-group mx-5 w-1/2">
@@ -67,9 +91,13 @@ const StudentFormHook = () => {
               type="number"
               name="phone"
               placeholder="84 123-456-789"
-              required
               className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md  focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"
             />
+            {errors.phone.messages.map((item, index) => (
+              <p className="text-red-400" key={index} hidden={errors.hidden}>
+                {item}
+              </p>
+            ))}
           </div>
           <div className="mb-6">
             <label
@@ -84,7 +112,6 @@ const StudentFormHook = () => {
               type="date"
               name="dateOfBirth"
               placeholder="91 1234-567"
-              required
               className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md  focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"
             />
           </div>
